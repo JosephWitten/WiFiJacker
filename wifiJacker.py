@@ -6,6 +6,7 @@ from modules import deauths
 
 toolBox = resources.resource()
 superValues = values.value()
+deauthMod = deauths.deauth(superValues) 
 
 argv = sys.argv[1:]
 
@@ -27,8 +28,14 @@ for option, arg in options:
     if option in ["-W", "--whitelistFile"]:
         superValues.whitelistFile = arg
 
+#print the given values
 toolBox.printSuperValues(superValues)
 
+#find APs
+deauthMod.findAP()
+
+#send de auth attacks 
+#deauthMod.attack()
 
 
 

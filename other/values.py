@@ -4,5 +4,5 @@ class value:
     blacklist = ""
     whitelistFile = ""
     blacklistFile = ""
-
+    count = 100
     
