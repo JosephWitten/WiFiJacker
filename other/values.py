@@ -5,4 +5,5 @@ class value:
     whitelistFile = ""
     blacklistFile = ""
     count = 100
-    
+    SSID = "Default"
+    SSIDdict = False
