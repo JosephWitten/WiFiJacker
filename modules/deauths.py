@@ -1,5 +1,6 @@
 from scapy.layers.dot11 import RadioTap, Dot11, Dot11Deauth, sendp, conf, Dot11Beacon, Dot11ProbeResp, Dot11Elt
 from scapy.all import send, sniff, RandMAC, get_if_hwaddr
+from scapy.all import *
 import os
 from multiprocessing import Process
 import random
@@ -94,3 +95,6 @@ class deauth:
         frame = RadioTap()/dot11/beacon/essid/rsn
         frames.append(frame)
         sendp(frames, inter=0.0100, iface=self.valueObj.interfaceName if len(frames)<10 else 0, loop=1)
+
+
+

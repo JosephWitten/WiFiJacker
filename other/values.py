@@ -7,3 +7,4 @@ class value:
     count = 100
     SSID = "Default"
     SSIDdict = False
+    gateway = ""

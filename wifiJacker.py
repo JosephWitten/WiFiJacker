@@ -3,6 +3,8 @@ import getopt
 from other import resources
 from other import values
 from modules import deauths
+from modules import spoofs
+from scapy.all import *
 
 toolBox = resources.resource()
 superValues = values.value()
