@@ -6,6 +6,6 @@ Discontinued but not in vain, I learnt magnitudes of information and skills deve
 
 ---
 
-Using ethically, responsibly and consentually. I dont not hold any legal responsibility for the actions of others, etc etc, you have a brain use it.
+Using ethically, responsibly and consentually. I do not hold any legal responsibility for the actions of others, etc etc, you have a brain use it.
 
 Happy hacking, Joseph Sm9l Witten
