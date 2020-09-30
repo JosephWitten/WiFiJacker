@@ -3,8 +3,7 @@ import getopt
 from other import resources
 from other import values
 from modules import deauths
-from modules import spoofs
-from scapy.all import *
+
 
 toolBox = resources.resource()
 superValues = values.value()
@@ -24,7 +23,7 @@ for option, arg in options:
     if option in ["-i", "--interface"]:
         superValues.interfaceName = arg
     if option in ["-b", "--blacklist"]:
-        superValues.blacklist = arg
+        superValues.blacklist.append(arg)
     if option in ["-B", "--blacklistFile"]:
         superValues.blacklistFile = arg
     if option in ["-w", "--whitelist"]:
@@ -38,20 +37,19 @@ for option, arg in options:
     if option in ["-c", "--count"]:
         superValues.count = arg
 
+if (options == []):
+    toolBox.displayBasicHelp()
+
 
 #print the given values
-toolBox.printSuperValues(superValues)
-
+#toolBox.printSuperValues(superValues)
 
 
 #find APs
 deauthMod.findAP()
 
 #send de auth attacks 
-#deauthMod.attack()
-
-#send AP 
-deauthMod.spam()
+deauthMod.attack()
 
 
 
